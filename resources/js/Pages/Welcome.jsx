@@ -44,7 +44,7 @@ export default function Welcome({ auth }) {
                             font-extrabold 
                             tracking-wide
                         ">
-                            COME ON, LET’S{" "}
+                            COME ON, LET’S{" "} GO NIGGAAAAAAA
                             <span className="text-orange-500">PLAY</span>
                         </h2>
 
