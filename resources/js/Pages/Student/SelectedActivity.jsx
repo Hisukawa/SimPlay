@@ -74,7 +74,7 @@ export default function SelectedActivity({
           {activity.image_path && (
             <div className="flex justify-center mb-10">
               <img
-                src={`/storage/${activity.image_path}`}
+                src={`/${activity.image_path}`}
                 alt={activity.title}
                 className="w-full max-w-4xl rounded-xl shadow-lg border border-[#b6d7a8] hover:scale-105 transition-transform duration-300"
               />
