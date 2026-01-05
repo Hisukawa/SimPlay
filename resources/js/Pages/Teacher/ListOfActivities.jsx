@@ -133,12 +133,7 @@ export default function ListOfActivities({ classroom, activities: initialActivit
               key={activity.id}
               className="bg-white rounded-2xl shadow-lg overflow-hidden"
             >
-              {activity.image_path && (
-                <img
-                  src={`/storage/${activity.image_path}`}
-                  className="h-48 w-full object-cover"
-                />
-              )}
+              <img src={`/${activity.image_path}`} className="h-48 w-full object-cover" />
 
               <div className="p-4 flex flex-col gap-2">
                 <h2 className="font-semibold text-green-800">

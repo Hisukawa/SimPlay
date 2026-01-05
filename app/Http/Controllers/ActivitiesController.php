@@ -54,36 +54,39 @@ class ActivitiesController extends Controller
     /* =========================================
      * STORE ACTIVITY
      * ========================================= */
-    public function store_activity(Request $request, $classId)
-    {
-        $request->validate([
-            'title'        => 'required|string|max:255',
-            'introduction' => 'nullable|string',
-            'instructions' => 'nullable|string',
-            'category'     => 'nullable|in:pre_activity,concept_activity,application,reference',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+public function store_activity(Request $request, $classId)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'introduction' => 'nullable|string',
+        'instructions' => 'nullable|string',
+        'category' => 'nullable|in:pre_activity,concept_activity,application,reference',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        $path = null;
+    $path = null;
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('activities', 'public');
-        }
-
-        $activity = Activities::create([
-            'class_id'     => $classId,
-            'title'        => $request->title,
-            'introduction' => $request->introduction,
-            'instructions' => $request->instructions,
-            'category'     => $request->category,
-            'image_path'   => $path,
-            'created_by'   => Auth::id(),
-        ]);
-
-        return response()->json([
-            'activity' => $activity
-        ], 201);
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('activities'), $filename);
+        $path = 'activities/' . $filename;
     }
+
+    $activity = Activities::create([
+        'class_id' => $classId,
+        'title' => $request->title,
+        'introduction' => $request->introduction,
+        'instructions' => $request->instructions,
+        'category' => $request->category,
+        'image_path' => $path,
+        'created_by' => Auth::id(),
+    ]);
+
+    return response()->json([
+        'activity' => $activity
+    ], 201);
+}
 
     /* =========================================
      * UPDATE ACTIVITY
