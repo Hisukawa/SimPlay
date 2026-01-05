@@ -58,8 +58,6 @@ public function store_activity(Request $request, $classId)
 {
     $request->validate([
         'title' => 'required|string|max:255',
-        'introduction' => 'nullable|string',
-        'instructions' => 'nullable|string',
         'category' => 'nullable|in:pre_activity,concept_activity,application,reference',
         'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
@@ -76,8 +74,6 @@ public function store_activity(Request $request, $classId)
     $activity = Activities::create([
         'class_id' => $classId,
         'title' => $request->title,
-        'introduction' => $request->introduction,
-        'instructions' => $request->instructions,
         'category' => $request->category,
         'image_path' => $path,
         'created_by' => Auth::id(),
@@ -98,8 +94,6 @@ public function store_activity(Request $request, $classId)
 
         $request->validate([
             'title'        => 'required|string|max:255',
-            'introduction' => 'nullable|string',
-            'instructions' => 'nullable|string',
             'category'     => 'nullable|in:pre_activity,concept_activity,application,reference',
             'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -117,8 +111,6 @@ public function store_activity(Request $request, $classId)
 
         $activity->update([
             'title'        => $request->title,
-            'introduction' => $request->introduction,
-            'instructions' => $request->instructions,
             'category'     => $request->category,
         ]);
 

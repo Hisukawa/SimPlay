@@ -100,12 +100,39 @@ Route::post(
 
 
 // Approver routes
-Route::middleware(['auth', 'role:student'])->prefix('student')->group(function () {
-    Route::get('/', [LoginController::class, 'student_dashboard'])->name('student.student_dashboard');
-    Route::get('/guide', [LoginController::class, 'app_guide'])->name('student.app_guide');
-    Route::get('/activities', [StudentActivitiesController::class, 'student_activities'])->name('student.activities');
-    Route::get('/student/activity/{id}', [StudentActivitiesController::class, 'show'])->name('student.activity.show');
-});
+Route::middleware(['auth', 'role:student'])
+    ->prefix('student')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [LoginController::class, 'student_dashboard']
+        )->name('student.student_dashboard');
+
+        Route::get(
+            '/guide',
+            [LoginController::class, 'app_guide']
+        )->name('student.app_guide');
+
+        // 🔹 Categories (folder view)
+        Route::get(
+            '/activities/categories',
+            [StudentActivitiesController::class, 'categories']
+        )->name('student.activities.categories');
+
+        // 🔹 Activities filtered by category
+        Route::get(
+            '/activities/{category}',
+            [StudentActivitiesController::class, 'byCategory']
+        )->name('student.activities.byCategory');
+
+        // 🔹 Single activity
+        Route::get(
+            '/activity/{id}',
+            [StudentActivitiesController::class, 'show']
+        )->name('student.activity.show');
+    });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

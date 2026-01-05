@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
             $table->string('title');
-            $table->text('instructions')->nullable();
-            $table->text('introduction')->nullable();
             $table->enum('category', ['pre_activity', 'concept_activity', 'application', 'reference'])->nullable();
             $table->string('image_path')->nullable();
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
