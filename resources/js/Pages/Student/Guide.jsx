@@ -85,7 +85,7 @@ export default function Guide({ nextUrl = "/student/activity" }) {
         {/* Next Button */}
         <div className="flex justify-end mt-10">
           <Link
-            href={route('student.activities')}
+            href={route('student.activities.categories')}
             className="bg-[#3f5f1f] hover:bg-[#2f4816] text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition"
           >
             Next →

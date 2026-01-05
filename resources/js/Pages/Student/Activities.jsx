@@ -4,13 +4,39 @@ import { Head, Link } from "@inertiajs/react";
 export default function Activities({ class: studentClass, activities }) {
   return (
     <StudentLayout>
-      <div className="min-h-screen bg-[#cfe9c8] flex justify-center px-4 py-8">
-        <Head title="My Activities" />
+      <Head title="My Activities" />
 
-        <div className="w-full max-w-7xl"> {/* Wider container for multiple columns */}
+      <div className="min-h-screen bg-[#cfe9c8] px-4 py-8">
+        <div className="w-full max-w-7xl mx-auto">
 
-          {/* Header */}
-          <div className="bg-[#3f5f1f] rounded-3xl px-6 py-5 mb-6 shadow-lg">
+          {/* Top Bar */}
+          <div className="flex items-center justify-between mb-6">
+            <Link
+              href={route("student.activities.categories")}
+              className="
+                inline-flex items-center
+                gap-2
+                bg-white
+                border border-[#3f5f1f]
+                text-[#3f5f1f]
+                font-semibold
+                px-4 py-2
+                rounded-full
+                shadow
+                hover:bg-[#eef6ea]
+                transition
+              "
+            >
+              ← Back to Categories
+            </Link>
+
+            <span className="hidden sm:block text-sm text-green-900 font-medium">
+              Select an activity to begin
+            </span>
+          </div>
+
+          {/* Header Card */}
+          <div className="bg-[#3f5f1f] rounded-3xl px-6 py-5 mb-8 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#cfe9c8] text-center">
               {studentClass?.name}
             </h1>
@@ -34,11 +60,10 @@ export default function Activities({ class: studentClass, activities }) {
                     rounded-3xl
                     shadow-xl
                     p-4 sm:p-6 md:p-8
-                    flex flex-col justify-between
-                    min-h-[400px] sm:min-h-[450px] md:min-h-[500px]
+                    flex flex-col
+                    min-h-[420px]
                   "
                 >
-                  {/* Optional image */}
                   {activity.image_path && (
                     <img
                       src={`/${activity.image_path}`}
@@ -46,7 +71,7 @@ export default function Activities({ class: studentClass, activities }) {
                       className="
                         rounded-xl
                         mb-4
-                        h-56 sm:h-64 md:h-72
+                        h-56 sm:h-64
                         w-full
                         object-cover
                       "
@@ -54,34 +79,31 @@ export default function Activities({ class: studentClass, activities }) {
                   )}
 
                   <div className="flex-1">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-green-900 mb-2">
+                    <h2 className="text-lg sm:text-xl font-bold text-green-900 mb-2">
                       {activity.title}
                     </h2>
-
-                    <p className="text-gray-700 text-sm sm:text-base line-clamp-4 sm:line-clamp-5">
-                      {activity.instructions}
-                    </p>
                   </div>
 
                   <Link
-                    href={route('student.activity.show', activity.id)}
+                    href={route("student.activity.show", activity.id)}
                     className="
-                        mt-4
-                        bg-[#3f5f1f]
-                        hover:bg-[#2f4816]
-                        text-white
-                        text-center
-                        py-2 sm:py-3
-                        rounded-full
-                        font-semibold
-                        text-base sm:text-lg
-                        shadow-md
-                        transition
+                      mt-4
+                      bg-[#3f5f1f]
+                      hover:bg-[#2f4816]
+                      text-white
+                      text-center
+                      py-2 sm:py-3
+                      rounded-full
+                      font-semibold
+                      text-base sm:text-lg
+                      shadow-md
+                      transition
                     "
-                    >
-                    {activity.category=== 'reference' ? 'View Reference' : 'Start Activity'}
-                    </Link>
-
+                  >
+                    {activity.category === "reference"
+                      ? "View Reference"
+                      : "Start Activity"}
+                  </Link>
                 </div>
               ))}
             </div>

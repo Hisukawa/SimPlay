@@ -24,8 +24,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
   const [form, setForm] = useState({
     id: null,
     title: "",
-    introduction: "",
-    instructions: "",
     category: "",
     image: null,
   });
@@ -35,8 +33,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
     try {
       const data = new FormData();
       data.append("title", form.title);
-      data.append("introduction", form.introduction);
-      data.append("instructions", form.instructions);
       data.append("category", form.category);
 
       if (form.image) {
@@ -78,8 +74,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
       setForm({
         id: null,
         title: "",
-        introduction: "",
-        instructions: "",
         category: "",
         image: null,
       });
@@ -140,10 +134,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
                   {activity.title}
                 </h2>
 
-                <p className="text-sm text-gray-600 line-clamp-2">
-                  {activity.introduction}
-                </p>
-
                 <span className="text-xs font-semibold text-green-600 uppercase">
                   {activity.category?.replace("_", " ")}
                 </span>
@@ -168,8 +158,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
                     setForm({
                       id: activity.id,
                       title: activity.title,
-                      introduction: activity.introduction ?? "",
-                      instructions: activity.instructions ?? "",
                       category: activity.category ?? "",
                       image: null,
                     });
@@ -229,26 +217,6 @@ export default function ListOfActivities({ classroom, activities: initialActivit
                   setForm({ ...form, title: e.target.value })
                 }
                 required
-              />
-
-              <textarea
-                className="w-full border rounded-lg p-2"
-                placeholder="Introduction"
-                rows={3}
-                value={form.introduction}
-                onChange={(e) =>
-                  setForm({ ...form, introduction: e.target.value })
-                }
-              />
-
-              <textarea
-                className="w-full border rounded-lg p-2"
-                placeholder="Instructions"
-                rows={4}
-                value={form.instructions}
-                onChange={(e) =>
-                  setForm({ ...form, instructions: e.target.value })
-                }
               />
 
               <select

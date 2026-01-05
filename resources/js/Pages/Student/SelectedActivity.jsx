@@ -7,6 +7,34 @@ export default function SelectedActivity({
   previousActivityId,
   isCompleted,
 }) {
+
+  const downloadImage = async () => {
+  if (!activity.image_path) return;
+
+  try {
+    const response = await fetch(`/${activity.image_path}`);
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    const fileName = activity.title
+      .toLowerCase()
+      .replace(/\s+/g, "_") + ".jpg";
+
+    link.href = url;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Image download failed:", error);
+  }
+};
+
   return (
     <StudentLayout>
       <Head title={activity.title} />
@@ -25,7 +53,7 @@ export default function SelectedActivity({
 
     {/* Back Button */}
     <Link
-      href={route("student.activities")}
+      href={route("student.activities.byCategory", activity.category)}
       className="bg-white border border-[#3f5f1f] text-[#3f5f1f] font-semibold px-4 py-2 rounded-full shadow hover:bg-[#eef6ea] transition
                  sm:absolute sm:top-6 sm:left-6"
     >
@@ -47,40 +75,54 @@ export default function SelectedActivity({
     </div>
   </div>
 
-          {/* Intro Section */}
-          <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
-            <img
-              src="/images/kids.png"
-              alt="Kids"
-              className="w-32 sm:w-40 flex-shrink-0"
-            />
-            <p className="text-[#2f4816] text-base sm:text-lg leading-relaxed">
-              {activity.introduction}
-            </p>
-          </div>
 
           {/* Activity Info */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 mb-8 shadow-inner border border-[#b6d7a8]">
             <h2 className="text-xl sm:text-2xl font-bold text-[#3f5f1f]">
               {activity.title}
             </h2>
-            {activity.instructions && (
-              <p className="mt-2 text-[#2f4816] text-base sm:text-lg">
-                {activity.instructions}
-              </p>
-            )}
           </div>
 
-          {/* Worksheet Image */}
-          {activity.image_path && (
-            <div className="flex justify-center mb-10">
-              <img
-                src={`/${activity.image_path}`}
-                alt={activity.title}
-                className="w-full max-w-4xl rounded-xl shadow-lg border border-[#b6d7a8] hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-          )}
+{activity.image_path && (
+  <div className="flex flex-col items-center mb-10 gap-4">
+    <img
+      src={`/${activity.image_path}`}
+      alt={activity.title}
+      className="
+        w-full
+        max-w-4xl
+        rounded-xl
+        shadow-lg
+        border border-[#b6d7a8]
+        hover:scale-105
+        transition-transform
+        duration-300
+      "
+    />
+
+    {/* Download Button */}
+    <button
+      onClick={downloadImage}
+      className="
+        bg-[#3f5f1f]
+        hover:bg-[#2f4816]
+        text-white
+        font-semibold
+        px-6
+        py-3
+        rounded-full
+        shadow-md
+        transition
+        flex
+        items-center
+        gap-2
+      "
+    >
+      ⬇ Download Activity
+    </button>
+  </div>
+)}
+
 
           {/* Navigation */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-[#b6d7a8]">
