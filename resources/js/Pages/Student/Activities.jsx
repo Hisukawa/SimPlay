@@ -41,7 +41,7 @@ export default function Activities({ class: studentClass, activities }) {
                   {/* Optional image */}
                   {activity.image_path && (
                     <img
-                      src={`/storage/${activity.image_path}`}
+                      src={`/${activity.image_path}`}
                       alt={activity.title}
                       className="
                         rounded-xl

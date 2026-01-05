@@ -337,7 +337,7 @@ export default function Classes({ initialClasses = [], students = [] }) {
                         />
                         <input
                           type="text"
-                          placeholder="Username (optional)"
+                          placeholder="Username (required)"
                           value={studentData.username}
                           onChange={(e) =>
                             setStudentData({ ...studentData, username: e.target.value })
