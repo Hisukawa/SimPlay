@@ -10,9 +10,9 @@ export default function SelectedActivity({
   return (
     <StudentLayout>
       <Head title={activity.title} />
+      
 
       <div className="min-h-screen bg-[#cfe9c8] flex justify-center px-4 py-10 relative overflow-hidden">
-
         {/* Floating leaf emojis */}
         <div className="absolute top-10 left-5 text-4xl opacity-30 rotate-12 animate-bounce-slow">🍃</div>
         <div className="absolute top-32 right-10 text-5xl opacity-25 -rotate-6 animate-bounce-slower">🍂</div>
@@ -21,30 +21,31 @@ export default function SelectedActivity({
         <div className="absolute top-1/2 left-1/2 text-6xl opacity-10 rotate-6 animate-bounce-slowest">🍃</div>
 
         <div className="relative w-full max-w-5xl bg-[#dff0d8] rounded-3xl shadow-xl p-6 sm:p-10 border border-[#b6d7a8]">
+    <div className="flex flex-col sm:flex-row sm:justify-between items-center mb-8 gap-4">
 
-          {/* Back Button */}
-          <Link
-            href={route("student.activities")}
-            className="absolute top-6 left-6 bg-white border border-[#3f5f1f] text-[#3f5f1f] font-semibold px-4 py-2 rounded-full shadow hover:bg-[#eef6ea] transition"
-          >
-            ← Back to Activities
-          </Link>
+    {/* Back Button */}
+    <Link
+      href={route("student.activities")}
+      className="bg-white border border-[#3f5f1f] text-[#3f5f1f] font-semibold px-4 py-2 rounded-full shadow hover:bg-[#eef6ea] transition
+                 sm:absolute sm:top-6 sm:left-6"
+    >
+      ← Back to Activities
+    </Link>
 
-          {/* Completed Badge */}
-          {isCompleted && (
-            <div className="absolute top-6 right-6 bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg animate-pulse">
-              ✔ Completed
-            </div>
-          )}
+    {/* Completed Badge */}
+    {isCompleted && (
+      <div className="bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg animate-pulse sm:absolute sm:top-6 sm:right-6">
+        ✔ Completed
+      </div>
+    )}
 
-          {/* Header */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-[#3f5f1f] rounded-full px-10 py-4 shadow-md">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-[#cfe9c8] tracking-wide uppercase">
-                {activity.category.replace("_", " ")}
-              </h1>
-            </div>
-          </div>
+    {/* Category Header */}
+    <div className="bg-[#3f5f1f] rounded-full px-10 py-4 shadow-md mt-10">
+      <h1 className="text-3xl sm:text-4xl font-extrabold text-[#cfe9c8] tracking-wide uppercase text-center">
+        {activity.category.replace("_", " ")}
+      </h1>
+    </div>
+  </div>
 
           {/* Intro Section */}
           <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
