@@ -63,24 +63,32 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 // Requester routes
 Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->group(function () {
-    Route::get('/', [LoginController::class, 'teacher_dashboard'])->name('teacher.teacher_dashboard');
-    Route::get('/classes', [ClassesController::class, 'classes'])->name('teacher.teacher_classes');
-    Route::post('/add_class', [ClassesController::class, 'add_class'])->name('teacher.add_class');
-    Route::post('/add_student/{classId}', [StudentController::class, 'add_student'])->name('teacher.add_student');
+Route::get('/', [LoginController::class, 'teacher_dashboard'])->name('teacher.teacher_dashboard');
 
+    // ---------- Classes ----------
+    Route::get('/classes', [ClassesController::class, 'classes'])->name('teacher.teacher_classes');
+    Route::post('/add_class', [ClassesController::class, 'add_class'])->name('teacher.add_class');            // Add
+    Route::put('/update_class/{class}', [ClassesController::class, 'update_class'])->name('teacher.update_class'); // Edit
+    Route::delete('/delete_class/{class}', [ClassesController::class, 'delete_class'])->name('teacher.delete_class'); // Delete
+
+    // ---------- Students ----------
+    Route::post('/add_student/{classId}', [StudentController::class, 'add_student'])->name('teacher.add_student'); // Add
+    Route::put('/update_student/{student}', [StudentController::class, 'update_student'])->name('teacher.update_student'); // Edit
+    Route::delete('/delete_student/{student}', [StudentController::class, 'delete_student'])->name('teacher.delete_student'); // Delete
+
+    // ---------- Activities ----------
     Route::get('/activities', [ActivitiesController::class, 'teacher_activities'])->name('teacher.teacher_activities');
     Route::get('/list_of_activities/{classId}', [ActivitiesController::class, 'list_of_activities'])->name('teacher.list_of_activities');
     Route::post('/classes/{classId}/activities', [ActivitiesController::class, 'store_activity'])->name('teacher.store_activity');
     Route::post('/activities/{activityId}/update', [ActivitiesController::class, 'update_activity'])->name('teacher.update_activity');
     Route::delete('/activities/{activityId}/delete', [ActivitiesController::class, 'delete_activity'])->name('teacher.delete_activity');
 
+    // ---------- Teachers ----------
     Route::get('/teachers', [StudentController::class, 'teachers'])->name('teacher.teachers');
-    Route::post('/teachers_store', [StudentController::class, 'store_teacher'])->name('teachers.store_teacher');
+    Route::post('/teachers_store', [StudentController::class, 'store_teacher'])->name('teacher.store_teacher');
 
-    Route::get(
-  '/teacher/activities/{activity}/records',
-  [TeacherActivityRecordController::class, 'index']
-)->name('teacher.activity.records');
+    // ---------- Activity Records ----------
+    Route::get('/activities/{activity}/records', [TeacherActivityRecordController::class, 'index'])->name('teacher.activity.records');
 
 Route::post(
   '/teacher/activities/{activity}/records/{student}/toggle',

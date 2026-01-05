@@ -119,4 +119,34 @@ public function store_teacher(Request $request)
             ->with('success', 'Teacher added successfully.');
     }
 
+    public function update_student(Request $request, User $student)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'middlename' => 'nullable|string|max:255',
+            'username' => 'nullable|string|max:255|unique:users,username,' . $student->id,
+            'email' => 'nullable|email|unique:users,email,' . $student->id,
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        $student->update([
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+            'lastname' => $request->lastname,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $student->password,
+        ]);
+
+        return response()->json(['student' => $student], 200);
+    }
+
+    // Delete student
+    public function delete_student(User $student)
+    {
+        $student->delete();
+        return response()->json(['message' => 'Student deleted successfully'], 200);
+    }
+
 }
