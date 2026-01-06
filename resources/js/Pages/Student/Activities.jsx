@@ -38,11 +38,8 @@ export default function Activities({ class: studentClass, activities }) {
           {/* Header Card */}
           <div className="bg-[#3f5f1f] rounded-3xl px-6 py-5 mb-8 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#cfe9c8] text-center">
-              {studentClass?.name}
-            </h1>
-            <p className="text-center text-sm sm:text-base text-[#e6f3df] mt-1">
               Your Activities
-            </p>
+            </h1>
           </div>
 
           {/* Activities Grid */}

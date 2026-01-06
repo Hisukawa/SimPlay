@@ -16,7 +16,7 @@ export default function Guide({ nextUrl = "/student/activity" }) {
         {/* Header */}
         <div className="bg-[#3f5f1f] rounded-full px-10 py-4 inline-block mb-8">
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-wide text-[#cfe9c8]">
-            GUIDE CARD
+            GUIDE
           </h1>
         </div>
 
