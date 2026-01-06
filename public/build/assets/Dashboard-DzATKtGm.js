@@ -1,1 +1,0 @@
-import{j as r}from"./app-CRTSqVc5.js";import{S as t}from"./StudentLayout-BOQ0zN-C.js";import"./user-DH6XbJID.js";import"./chevron-down-CqjZYl3c.js";import"./log-out-BNPwM0z9.js";function d(){return r.jsx(t,{children:r.jsx("div",{className:"p-6 bg-white border-b border-gray-200",children:"You're logged in as Student!"})})}export{d as default};
